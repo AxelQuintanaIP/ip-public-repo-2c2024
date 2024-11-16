@@ -32,35 +32,27 @@
         </form>
     </div>
 
-    {# Bloque de borde de tarjeta #}
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% if images|length == 0 %}
         <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
         {% else %} {% for img in images %}
-        <div class="col"> {# Aca cambiamos el color del borde de las tarjetas #}
-            {% if img.status == 'Alive' %} {# Si esta vivo le ponemos un borde verde #}
-                <div class="card mb-3 ms-5 border-success" style="max-width: 540px;">
-            {% elif img.status == 'Dead' %} {# Si esta muerto le ponemos un borde rojo #}
-                <div class="card mb-3 ms-5 border-danger" style="max-width: 540px;">
-            {% else %} {# Si el estado es desconocido le ponemos un borde naranja #}
-                <div class="card mb-3 ms-5 border-warning" style="max-width: 540px;">
-            {% endif %}
+        <div class="col">
+            <div class="card mb-3 ms-5" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="{{ img.url }}" class="card-img-top" alt="imagen">
                     </div>
 
-                    {# Bloque de estado de pj #}
                     <div class="col-md-8">
                         <div class="card-body">
                             <h3 class="card-title">{{ img.name }}</h3>
                             <p class="card-text">
-                                <strong> {# Cambiamos el condicional para que el circulo cambie de color depende su estado #}
-                                    {% if img.status == 'Alive' %}🟢 {{ img.status }} {# Si esta vivo el circulo es verde #}
-                                    {% elif img.status == 'Dead' %} 🔴 {{ img.status }} {# Si esta muerto el circulo es rojo #}
-                                    {% else %} 🟠 {{ img.status }} {# Si el estado es desconocido el circulo es naranja #}
-                                    {% endif %}
-                                </strong>
+                                <strong>
+                                            {% if true == 'Alive' %} 🟢 {{ img.status }} 
+                                            {% elif true == 'Dead' %} 🔴 {{ img.status }} 
+                                            {% else %} 🟠 {{ img.status }} 
+                                            {% endif %}
+                                        </strong>
                             </p>
                             <p class="card-text"><small class="text-body-secondary">Última ubicación: {{ img.last_location }}</small></p>
                             <p class="card-text"><small class="text-body-secondary">Episodio inicial: {{ img.first_seen }}</small></p>
