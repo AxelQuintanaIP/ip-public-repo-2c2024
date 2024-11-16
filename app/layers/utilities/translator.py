@@ -5,34 +5,33 @@ from app.layers.utilities.card import Card
 # usado cuando la info. viene de la API, para transformarla en una Card.
 def fromRequestIntoCard(object):
     card = Card(
-                        url=object['image'],
-                        name=object['name'],
-                        status=object['status'], 
-                        last_location = object['location']['name'],
-                        first_seen = object['origin']['name']
-                )
+            url=object['image'],
+            name=object['name'],
+            status=object['status'], 
+            last_location = object['location']['name'],
+            first_seen = object['origin']['name']
+    )
     return card
 
 # usado cuando la info. viene del template, para transformarlo en una Card antes de guardarlo en la base de datos.
-def fromTemplateIntoCard(templ): 
+def fromTemplateIntoCard(home): # emprolijamos y cambiamos por la template 'home'
     card = Card(
-                        url=templ.POST.get("url"),
-                        name=templ.POST.get("name"),
-                        status=templ.POST.get("status"),
-                        last_location=templ.POST.get("last_location"),
-                        first_seen=templ.POST.get("first_seen")
-                )
+        url=home.POST.get("url"),
+        name=home.POST.get("name"),
+        status=home.POST.get("status"),
+        last_location=home.POST.get("last_location"),
+        first_seen=home.POST.get("first_seen")
+    )
     return card
 
 # cuando la info. viene de la base de datos, para transformarlo en una Card antes de mostrarlo.
-def fromRepositoryIntoCard(repo_dict):
+def fromRepositoryIntoCard(favourite): # emprolijamos y llamamos al modelo Favourite de la base de datos
     card = Card(
-                        id=repo_dict['id'],
-
-                        url=repo_dict['url'],
-                        name=repo_dict['name'],
-                        status=repo_dict['status'],
-                        last_location=repo_dict['last_location'],
-                        first_seen=repo_dict['first_seen'],
-                )
+            id=favourite['id'],
+            url=favourite['url'],
+            name=favourite['name'],
+            status=favourite['status'],
+            last_location=favourite['last_location'],
+            first_seen=favourite['first_seen'],
+    )
     return card

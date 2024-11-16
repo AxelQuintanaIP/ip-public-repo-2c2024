@@ -11,8 +11,8 @@ def index_page(request):
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
-    images = services.getAllImages()
-    favourite_list = []
+    images = services.getAllImages() # llamamos a la funcion obtener todas las imagenes
+    favourite_list = services.getAllFavourites(request) # Llamamos a la funcion de obtener todos los favoritos
 
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
@@ -22,7 +22,7 @@ def search(request):
     # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
-        images = services.getAllImages(search_msg)
+        images = services.getAllImages(search_msg) # llamamos a la funcion de obtener todas las imagenes usando el input del cuadro de busqueda
         return render(request, 'home.html', {'images': images})
     else:
         return redirect('home')
@@ -30,18 +30,21 @@ def search(request):
 
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required
-def getAllFavouritesByUser(request):
-    favourite_list = []
+def getAllFavouritesByUser(request): # llamamos a la funcion de obtener todos los favoritos de un usuario para mostrarlos en otra plantilla
+    favourite_list = services.getAllFavourites(request)
     return render(request, 'favourites.html', { 'favourite_list': favourite_list })
 
-@login_required
-def saveFavourite(request):
-    pass
+@login_required 
+def saveFavourite(request): # llamamos a la funcion agregar favoritos desde servicios
+    services.saveFavourite(request)
+    return redirect('home') # redireccionamos a la pagina 'home' para seguir viendo las imagenes
 
 @login_required
-def deleteFavourite(request):
-    pass
+def deleteFavourite(request): # llamamos a la funcion eliminar favoritos
+    services.deleteFavourite(request) 
+    return redirect('favoritos') # redireccionamos a la pagina de favoritos para seguir viendo el listado de favs
 
 @login_required
-def exit(request):
-    pass
+def exit(request): # llamamos a la funcion logout para desloguear
+    logout(request)
+    return redirect('login') # redireccionamos a la pagina de 'login' una vez deslogueado
