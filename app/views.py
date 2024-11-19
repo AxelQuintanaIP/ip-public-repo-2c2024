@@ -24,7 +24,9 @@ def search(request):
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
         images = services.getAllImages(search_msg) # llamamos a la funcion de obtener todas las imagenes usando el input del cuadro de busqueda
-        return render(request, 'home.html', {'images': images})
+        # llamamos a la lista de favoritos para que se muestren correctamente cuando utilizamos la barra de busqueda
+        favourite_list = services.getAllFavourites(request)
+        return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
     else:
         return redirect('home')
 
