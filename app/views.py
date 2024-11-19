@@ -3,7 +3,8 @@
 from django.shortcuts import redirect, render
 from .layers.services import services
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate # importamos login y authenticate para poder loguear al usuario luego de autenticar sus datos
+from .forms import CustomUserCreationForm # importamos la funcion que desarrollamos para crear nuevos usuarios
 
 def index_page(request):
     return render(request, 'index.html')
@@ -48,3 +49,22 @@ def deleteFavourite(request): # llamamos a la funcion eliminar favoritos
 def exit(request): # llamamos a la funcion logout para desloguear
     logout(request)
     return redirect('login') # redireccionamos a la pagina de 'login' una vez deslogueado
+
+
+# Funcion para la creacion de usuarios
+def register(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+
+    if request.method == 'POST':
+        user_creation_form = CustomUserCreationForm(data=request.POST)
+
+        if user_creation_form.is_valid():
+            user_creation_form.save()
+
+            user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
+            login(request, user)
+
+            return redirect('index-page')
+    return render(request, 'registration/register.html', data)

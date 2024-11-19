@@ -11,6 +11,8 @@ urlpatterns = [
     path('favourites/', views.getAllFavouritesByUser, name='favoritos'),
     path('favourites/add/', views.saveFavourite, name='agregar-favorito'),
     path('favourites/delete/', views.deleteFavourite, name='borrar-favorito'),
+    
+    path('register/', views.register, name="register"), # agregamos un path a la nueva template de registro
 
     path('exit/', views.exit, name='exit'),
 ]
