@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render
 from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate # importamos login y authenticate para poder loguear al usuario luego de autenticar sus datos
+from django.core.paginator import Paginator # Importamos paginator para poder desarrollar un paginador
 from .forms import CustomUserCreationForm # importamos la funcion que desarrollamos para crear nuevos usuarios
 from django.conf import settings
 from django.contrib import messages
@@ -16,10 +17,16 @@ def index_page(request):
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
-    images = services.getAllImages() # llamamos a la funcion obtener todas las imagenes
+    
+    
+    images = services.getAllImages()
+    images_page = Paginator(images, 5) # mostramos 5 cards por pagina
+    page = request.GET.get('page') # # obtenemos la pagina actual en la que nos encontramos
+    images_obj = images_page.get_page(page)
     favourite_list = services.getAllFavourites(request) # Llamamos a la funcion de obtener todos los favoritos
 
-    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+
+    return render(request, 'home.html', { 'images': images_obj, 'favourite_list': favourite_list })
 
 def search(request):
     search_msg = request.POST.get('query', '')
