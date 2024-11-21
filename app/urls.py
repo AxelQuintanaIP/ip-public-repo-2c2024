@@ -13,6 +13,7 @@ urlpatterns = [
     path('favourites/delete/', views.deleteFavourite, name='borrar-favorito'),
     
     path('register/', views.register, name="register"), # agregamos un path a la nueva template de registro
+    path('subscribe/', views.subscribe, name="subscribe"), # agreagamos un path para la funcion de enviar email
 
     path('exit/', views.exit, name='exit'),
 ]

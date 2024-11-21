@@ -2,10 +2,11 @@
 {% block content %}
 {% load crispy_forms_tags %} {# cargamos crispy para poder utilizarlo #}
 
+<h2 class="text-center">Registro</h2>
+
 <div class="login-form" style="text-align: center;">
-    <form action="" method="POST" style="display: inline-block;">
+    <form action="{% url "register" %}" action="{% url "subscribe" %}" method="POST" style="display: inline-block;"> {# utilizamos el parametro action para poder llamar a las funciones de registro y email #}
         {% csrf_token %}
-        <h2 class="text-center">Registro</h2>
         {{ form|crispy }} {# llamamos al formulario #}
         <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
     </form>

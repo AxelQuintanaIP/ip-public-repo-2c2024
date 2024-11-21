@@ -5,6 +5,9 @@ from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate # importamos login y authenticate para poder loguear al usuario luego de autenticar sus datos
 from .forms import CustomUserCreationForm # importamos la funcion que desarrollamos para crear nuevos usuarios
+from django.conf import settings
+from django.contrib import messages
+from django.core.mail import send_mail
 
 def index_page(request):
     return render(request, 'index.html')
@@ -66,7 +69,25 @@ def register(request):
             user_creation_form.save()
 
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
+            subject = 'TP Rick and Morty'
+            message = 'Se Ha Registrado Correctamente'
+            recipient = user_creation_form.cleaned_data['email']
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
             login(request, user)
 
             return redirect('index-page')
     return render(request, 'registration/register.html', data)
+
+
+def subscribe(request):
+    form = CustomUserCreationForm()
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            subject = 'TP Rick and Morty'
+            message = 'Se ha registrado correctamente'
+            recipient = form.cleaned_data.get('email')
+            send_mail(subject, 
+                message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+            return redirect('subscribe')
+    return render(request, 'index.html', {'form': form})
