@@ -140,3 +140,9 @@ table.table td i {
     margin-top: 6px;
     font-size: 95%;
 }
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 5px;
+}

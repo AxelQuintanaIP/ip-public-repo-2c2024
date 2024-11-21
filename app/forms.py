@@ -24,11 +24,13 @@ class CustomUserCreationForm(UserCreationForm):
     )
     password1 = forms.CharField(widget=forms.PasswordInput, # agregamos un widget para que no se muestre la password con caracteres, sino con asteriscos
         label = "Contraseña",
-        required=True
+        help_text="Debe contener al menos 8 caracteres",
+        required=True,
     )
     password2 = forms.CharField(widget=forms.PasswordInput,
         label = "Confirmar Contraseña",
-        required=True
+        help_text="Introduzca la misma contraseña anterior",
+        required=True,
     )
 
     class Meta:
