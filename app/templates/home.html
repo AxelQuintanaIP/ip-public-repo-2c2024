@@ -66,13 +66,18 @@
 
                     {# Bloque de estado de pj #}
                     <div class="col-md-8">
-                        <div class="card-body">
+                        <div class="card-body texto-negro">
                             <h3 class="card-title">{{ img.name }}</h3>
                             <p class="card-text">
                                 <strong> {# Cambiamos el condicional para que el circulo cambie de color depende su estado #}
-                                    {% if img.status == 'Alive' %} 🟢 {{ img.status }} 
-                                    {% elif img.status == 'Dead' %} 🔴 {{ img.status }} 
-                                    {% else %} 🟠 {{ img.status }} 
+                                    {% if img.status == 'Alive' %}
+                                    <span class="circle-border">🟢</span> {{ img.status }} {# agregamos una clase en css para ponerle borde al circulo #}
+
+                                    {% elif img.status == 'Dead' %} 
+                                    <span class="circle-border">🔴</span> {{ img.status }}
+
+                                    {% else %}
+                                    <span class="circle-border">🟠</span> {{ img.status }} 
                                     {% endif %}
                                 </strong>
                             </p>

@@ -10,4 +10,4 @@ DEFAULT_REST_API_URL = 'https://rickandmortyapi.com/api/character?page=' + DEFAU
 
 # Palabra buscada por defecto.
 DEFAULT_NAME_QUERY_PARAM = '&name='
-DEFAULT_REST_API_SEARCH = DEFAULT_REST_API_URL + DEFAULT_NAME_QUERY_PARAM # https://rickandmortyapi.com/api/character?page=1&name=?
+DEFAULT_REST_API_SEARCH = DEFAULT_REST_API_URL + DEFAULT_NAME_QUERY_PARAM # https://rickandmortyapi.com/api/character?page=1&name=

@@ -17,11 +17,10 @@ def index_page(request):
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
-    
-    
+
     images = services.getAllImages()
-    images_page = Paginator(images, 5) # mostramos 5 cards por pagina
-    page = request.GET.get('page') # # obtenemos la pagina actual en la que nos encontramos
+    images_page = Paginator(images, 20) # mostramos 20 cards por pagina
+    page = request.GET.get('page') # obtenemos la pagina actual en la que nos encontramos
     images_obj = images_page.get_page(page)
     favourite_list = services.getAllFavourites(request) # Llamamos a la funcion de obtener todos los favoritos
 
@@ -35,9 +34,13 @@ def search(request):
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
         images = services.getAllImages(search_msg) # llamamos a la funcion de obtener todas las imagenes usando el input del cuadro de busqueda
+        images_page = Paginator(images, 20) # mostramos 20 cards por pagina
+        page = request.GET.get('page') # obtenemos la pagina actual en la que nos encontramos
+        images_obj = images_page.get_page(page)
+
         # llamamos a la lista de favoritos para que se muestren correctamente cuando utilizamos la barra de busqueda
         favourite_list = services.getAllFavourites(request)
-        return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
+        return render(request, 'home.html', {'images': images_obj, 'favourite_list': favourite_list})
     else:
         return redirect('home')
 
