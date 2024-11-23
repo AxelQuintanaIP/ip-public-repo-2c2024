@@ -79,26 +79,23 @@ def register(request):
         # En esta seccion desarrollamos todo lo necesario para el registro y el envio de mail
         if user_creation_form.is_valid():
             user_creation_form.save()
-
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             # obtenemos los datos que vamos a utilizar para enviar el mail
             user_first_name = user.first_name
             username = user.username
             user_password = user_creation_form.cleaned_data['password1']
-            
+
             subject = 'TP Rick and Morty'
             message = f"""
             ¡Hola {user_first_name}! Gracias por registrarte.
             Sus datos para iniciar sesion son los siguientes, no los olvides:\n
             USUARIO: {username}
-            CONTRASEÑA: {user_password}
-            """
+            CONTRASEÑA: {user_password}"""
 
             recipient = user_creation_form.cleaned_data['email']
             send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+
             login(request, user)
             return redirect('index-page')
-        else:
-            user_creation_form = CustomUserCreationForm()
 
     return render(request, 'registration/register.html', data)
