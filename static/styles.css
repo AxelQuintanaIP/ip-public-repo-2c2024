@@ -146,3 +146,37 @@ table.table td i {
     font-size: 12px;
     margin-bottom: 5px;
 }
+
+.card.border-success {
+    background-color: #cfcfcf;
+    border-width: 5px;
+}   
+
+.card.border-success:hover {
+    background-color: #4aeb31;
+    transform: scale(1.05); 
+}
+
+.card.border-warning {
+    background-color: #cfcfcf;
+    border-width: 5px;
+}
+.card.border-warning:hover {
+    background-color: #f1a738;
+    transform: scale(1.05);
+}
+
+.card.border-danger {
+    background-color: #cfcfcf;
+    border-width: 5px;
+}
+
+.card.border-danger:hover {
+    background-color: #e44017;
+    transform: scale(1.05);
+}
+
+body {
+    background-color: #0f172a!important;
+    color:#ddd!important;
+}
