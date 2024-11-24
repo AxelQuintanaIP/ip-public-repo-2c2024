@@ -9,7 +9,7 @@ def getAllImages(input=None):
 
     json_collection = []
     json_response = []
-    total_pages = 42
+    total_pages = 3
     default_url = "https://rickandmortyapi.com/api/character?page="
     search_url = config.DEFAULT_REST_API_SEARCH
     
