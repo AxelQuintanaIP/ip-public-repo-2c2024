@@ -8,41 +8,34 @@
     {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %} {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> {# utilizamos Jquery para desaparecer el spinner al finalizar carga #}
 </head>
 
-{# Este es nuestro loading spinner al que personalizamos en CSS #}
-<body class="hidden">
-    <div class="lds-dual-ring" id="load">
-    </div>
-</body>
-
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent"> {# establecemos la barra transparente asi no hay conflictos de color #}
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Proyecto TP</a>
+            <a class="navbar-brand text-primary" href="#">Proyecto TP</a> {# Establecemos color celeste/azul en los nav item para facilitar la vista #}
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index-page' %}">Inicio</a>
+                        <a class="nav-link active text-primary" aria-current="page" href="{% url 'index-page' %}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><strong>Galería</strong></a>
+                        <a class="nav-link active text-primary" aria-current="page" href="{% url 'home' %}"><strong>Galería</strong></a>
                     </li>
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'favoritos' %}">Favoritos</a>
+                        <a class="nav-link text-primary" href="{% url 'favoritos' %}">Favoritos</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
                         {% if request.user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'logout' %}">Salir</a>
+                            <a class="nav-link text-primary" href="{% url 'logout' %}">Salir</a>
                         {% else %}
-                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                            <a class="nav-link text-primary" href="{% url 'login' %}">Iniciar sesión</a>
                         <li class="nav-item"> {# agregamos la seccion para registrar usuarios en caso que no este logueado #}
-                            <a class="nav-link" href="{% url 'register' %}">Registrarse</a>
+                            <a class="nav-link text-primary" href="{% url 'register' %}">Registrarse</a>
                         </li>
                         {% endif %}
                     </li>
@@ -51,13 +44,6 @@
         </div>
     </nav>
 
-    {# Script necesario para ocultar spinner cuando finalice la carga #}
-    <script>
-        window.onload = function() {
-            $('#load').fadeOut();
-            $('body').removeClass('hidden')
-        };
-    </script>
 
 {% block content %}
 {% endblock %}

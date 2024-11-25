@@ -176,10 +176,6 @@ table.table td i {
     transform: scale(1.05);
 }
 
-.texto-negro {
-    color: black;
-}
-
 .circle-border {
     background: black;
     border-radius: 50%;
@@ -227,4 +223,3 @@ body {
         transform: rotate(360deg);
     }
 }
-
